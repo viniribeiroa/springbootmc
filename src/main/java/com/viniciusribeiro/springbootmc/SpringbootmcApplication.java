@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.viniciusribeiro.springbootmc.domain.Categoria;
 import com.viniciusribeiro.springbootmc.domain.Cidade;
+import com.viniciusribeiro.springbootmc.domain.Cliente;
+import com.viniciusribeiro.springbootmc.domain.Endereco;
 import com.viniciusribeiro.springbootmc.domain.Estado;
 import com.viniciusribeiro.springbootmc.domain.Produto;
+import com.viniciusribeiro.springbootmc.domain.enums.TipoCliente;
 import com.viniciusribeiro.springbootmc.repositories.CategoriaRepository;
 import com.viniciusribeiro.springbootmc.repositories.CidadeRepository;
+import com.viniciusribeiro.springbootmc.repositories.ClienteRepository;
+import com.viniciusribeiro.springbootmc.repositories.EnderecoRepository;
 import com.viniciusribeiro.springbootmc.repositories.EstadoRepository;
 import com.viniciusribeiro.springbootmc.repositories.ProdutoRepository;
 
@@ -30,6 +35,12 @@ public class SpringbootmcApplication implements CommandLineRunner{
 	
 	@Autowired
 	private EstadoRepository estadoRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootmcApplication.class, args);
@@ -68,7 +79,16 @@ public class SpringbootmcApplication implements CommandLineRunner{
 		
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
-	    		
+		
+		Cliente cli1 = new Cliente(null, "Maria Silva", "mariasilva@mai.com", "10245687255",TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("255458889", "254466987"));
+		
+		Endereco e1 = new Endereco(null, "Rua Flores", "251","casa", "bela vista", "34155255", cli1, c1);
+	    cli1.getEnderecos().addAll(Arrays.asList(e1));	
+	    
+	    clienteRepository.saveAll(Arrays.asList(cli1));
+	    enderecoRepository.saveAll(Arrays.asList(e1));
+	    
 	}
 
 }
