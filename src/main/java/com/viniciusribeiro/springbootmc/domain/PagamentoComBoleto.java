@@ -2,8 +2,11 @@ package com.viniciusribeiro.springbootmc.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 import com.viniciusribeiro.springbootmc.domain.enums.EstadoPagamento;
 
+@Entity
 public class PagamentoComBoleto extends Pagamento{
 	private static final long serialVersionUID = 1L;
 	
