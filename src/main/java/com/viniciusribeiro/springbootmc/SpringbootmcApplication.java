@@ -13,6 +13,7 @@ import com.viniciusribeiro.springbootmc.domain.Cidade;
 import com.viniciusribeiro.springbootmc.domain.Cliente;
 import com.viniciusribeiro.springbootmc.domain.Endereco;
 import com.viniciusribeiro.springbootmc.domain.Estado;
+import com.viniciusribeiro.springbootmc.domain.ItemPedido;
 import com.viniciusribeiro.springbootmc.domain.Pagamento;
 import com.viniciusribeiro.springbootmc.domain.PagamentoComCartao;
 import com.viniciusribeiro.springbootmc.domain.Pedido;
@@ -24,6 +25,7 @@ import com.viniciusribeiro.springbootmc.repositories.CidadeRepository;
 import com.viniciusribeiro.springbootmc.repositories.ClienteRepository;
 import com.viniciusribeiro.springbootmc.repositories.EnderecoRepository;
 import com.viniciusribeiro.springbootmc.repositories.EstadoRepository;
+import com.viniciusribeiro.springbootmc.repositories.ItemPedidoRepository;
 import com.viniciusribeiro.springbootmc.repositories.PagamentoRepository;
 import com.viniciusribeiro.springbootmc.repositories.PedidoRepository;
 import com.viniciusribeiro.springbootmc.repositories.ProdutoRepository;
@@ -54,6 +56,9 @@ public class SpringbootmcApplication implements CommandLineRunner{
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootmcApplication.class, args);
@@ -113,6 +118,13 @@ public class SpringbootmcApplication implements CommandLineRunner{
 	    
 	    pedidoRepository.saveAll(Arrays.asList(ped1));
 	    pagamentoRepository.saveAll(Arrays.asList(pagto1));
+	    
+	    ItemPedido ip1 = new ItemPedido(ped1, p1, 0.0, 1, 2000.00);
+	    
+	    ped1.getItens().addAll(Arrays.asList(ip1));
+	    p1.getItens().addAll(Arrays.asList(ip1));
+	    
+	    itemPedidoRepository.saveAll(Arrays.asList(ip1));
 	}
 
 }
